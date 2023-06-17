@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('category', 100);
             $table->text('description');
             $table->integer('copies');
+            $table->text("image")->default(null)->nullable();
             $table->timestamps();
         });
     }
