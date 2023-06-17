@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mx-2 g-2">
+    <div class="row ms-2 ps-2 g-2">
         <ul class="breadcrumb">
             <li><a href="/"><small>Home</small></a></li>
         </ul>
@@ -40,8 +40,8 @@
             </div>
         </div>
     </div>
-    <hr>
-    <div class="row mx-2">
+    <div class="row ms-2 ps-2 pt-3 g-2">
+        <hr>
         <div class="d-flex">
             <h3>Genre : Romance</h3>
             <a href="#" class="ms-auto me-2">See All</a>
@@ -144,8 +144,8 @@
               </div>
         </div>
     </div>
-    <hr>
-    <div class="row mx-2">
+    <div class="row ms-2 ps-2 pt-3 g-2">
+        <hr>
         <div class="d-flex">
             <h3>Genre : Action</h3>
             <a href="#" class="ms-auto me-2">See All</a>

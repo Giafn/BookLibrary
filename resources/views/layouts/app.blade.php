@@ -108,12 +108,13 @@
                 <main class="py-4">
                     @yield('content')
                 </main>
+                <footer>
+                    <div class="text-center py-3">
+                        <span class="">Made with <i class="bi bi-heart-fill"></i> by kelompok 3</span>
+                    </div>
+                </footer>
             </div>
         </div>
-        @guest
-        @else
-        @include('layouts.footer')
-        @endguest
     </div>
 </body>
 </html>
