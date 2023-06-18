@@ -33,10 +33,10 @@
                                 <td>{{$book->author}}</td>
                                 <td>{{$book->publisher}}</td>
                                 <td>{{$book->category}}</td>
-                                <td><img src="{{$book->image}}" alt="" width="100px"></td>
+                                <td><img src="https://drive.google.com/uc?id={{$drive['location/'.$book->image]->first()['extraMetadata']['id']}}" alt="" width="100px"></td>
                                 <td>
                                     <a href="{{url('/book/edit')}}" class="btn btn-warning">Edit</a>
-                                    <form action="{{url('/book/destroy', $book->id)}}" method="POST" class="d-inline">
+                                    <form action="{{url('/admin/deleteBook/'. $book->id)}}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">Delete</button>

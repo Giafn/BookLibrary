@@ -29,6 +29,10 @@
                                 <input type="text" class="form-control" id="publisher" name="publisher" placeholder="Publisher">
                             </div>
                             <div class="col-md-6 mb-3">
+                                <label for="year" class="form-label">year</label>
+                                <input type="text" class="form-control" id="year" name="year" placeholder="year">
+                            </div>
+                            <div class="col-md-6 mb-3">
                                 <label for="category" class="form-label">Category</label>
                                 <select class="form-select" aria-label="Default select example" id="category" name="category">
                                     <option selected>Open this select menu</option>
@@ -45,9 +49,17 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="image" class="form-label">Image</label>
                                 <input type="file" class="form-control" id="image" name="image" placeholder="Image">
+                            </div>
+                            <div class="col-10 mb-3">
+                                <label for="description" class="form-label">Deskripsi</label>
+                                <textarea type="text" class="form-control" id="description" name="description" placeholder="description"></textarea>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="copy" class="form-label">copy</label>
+                                <input type="number" class="form-control" id="copy" name="copy" placeholder="copy">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
