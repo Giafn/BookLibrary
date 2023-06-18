@@ -67,7 +67,7 @@
             </div>
         </nav>
         @endguest
-        
+
         <div class="row w-100">
             @guest
             @else

@@ -19,3 +19,13 @@ ul.breadcrumb {
     color: #fcb021;
     text-decoration: underline;
   }
+
+  ul.breadcrumb-white li+li:before {
+    padding: 8px;
+    color: rgb(0, 0, 0);
+    content: "/\00a0";
+  }
+  ul.breadcrumb-white li a {
+    color: #000000;
+    text-decoration: none;
+  }

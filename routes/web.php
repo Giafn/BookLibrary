@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -29,4 +29,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/bookList', [AdminController::class, 'bookList'])->name('admin.bookList');
+    Route::get('/admin/addBook', [AdminController::class, 'addBook'])->name('admin.addBook');
+    Route::post('/admin/addBook', [AdminController::class, 'storeBook'])->name('admin.storeBook');
 });

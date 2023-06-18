@@ -16,7 +16,12 @@ class AdminController extends Controller
     {
         $selected = 'bookList';
         $books = Books::all();
-        // dd($books);
         return view('admin.bookList', compact('books', 'selected'));
     }
+    public function addBook()
+    {
+        $selected = 'bookList';
+        return view('admin.addBook', compact('selected'));
+    }
+
 }

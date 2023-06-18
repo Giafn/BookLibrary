@@ -1,6 +1,9 @@
 @extends('layouts-admin.app')
 
 @section('content')
+    <ul class="breadcrumb">
+        <li><a href="/admin" class="text-dark"><small>Home</small></a></li>
+    </ul>
     <div class="row g-3 ps-3">
         <div class="col-md-7">
             <div class="card" style="background-color: #F7E6C4">

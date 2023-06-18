@@ -1,6 +1,10 @@
 @extends('layouts-admin.app')
 
 @section('content')
+    <ul class="breadcrumb-white breadcrumb">
+        <li><a href="/admin" class="text-dark"><small>Home</small></a></li>
+        <li><a href="#" class="text-dark"><small>ListBook</small></a></li>
+    </ul>
     <div class="row ps-3">
         <div class="col">
             <div class="card">
@@ -8,6 +12,7 @@
                     <h3><b>Book List</b></h3>
                 </div>
                 <div class="card-body">
+                    <a href="{{route('admin.addBook')}}" class="btn btn-primary mb-3">Add Book</a>
                     <table class="table">
                         <thead>
                           <tr>
