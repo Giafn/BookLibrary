@@ -33,7 +33,13 @@
                                 <td>{{$book->author}}</td>
                                 <td>{{$book->publisher}}</td>
                                 <td>{{$book->category}}</td>
-                                <td><img src="https://drive.google.com/uc?id={{$drive['location/'.$book->image]->first()['extraMetadata']['id']}}" alt="" width="100px"></td>
+                                {{-- <td><img src="https://drive.google.com/uc?id={{$drive['location/'.$book->image]->first()['extraMetadata']['id']}}" alt="" width="100px"></td> --}}
+                                <td>
+                                    {{-- btn show image --}}
+                                    <a class="btn btn-primary showimage" data-id="{{$book->id}}"><i class="fas fa-image"></i>
+                                        Show Image
+                                    </a>
+                                </td>
                                 <td>
                                     <a href="{{url('/book/edit')}}" class="btn btn-warning">Edit</a>
                                     <form action="{{url('/admin/deleteBook/'. $book->id)}}" method="POST" class="d-inline">
@@ -50,6 +56,42 @@
             </div>
         </div>
     </div>
+
+    {{-- modal show image --}}
+    <div class="modal fade" id="showimage" tabindex="-1" aria-labelledby="showimageLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content">
+            <div class="modal-body">
+                <img id="imageshow" src="" alt="" width="100%">
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- end modal show image -->
+
 @endsection
 @push('Scripts')
+    <script>
+        $('.showimage').on('click', function(e){
+            let id = $(this).data('id');
+            // remove d-none loader div
+            $('#loader').removeClass('d-none');
+
+            $.ajax({
+                url: "{{url('/admin/show')}}"+"/"+id,
+                type: "GET",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(data){
+                    $('#imageshow').attr('src', data);
+                    $('#loader').addClass('d-none');
+                    $('#showimage').modal('show');
+                },
+                error: function(){
+                    alert("error");
+                }
+            });
+        });
+    </script>
 @endpush

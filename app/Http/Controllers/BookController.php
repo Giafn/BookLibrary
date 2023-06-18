@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Books;
 use Illuminate\Http\Request;
+use Yaza\LaravelGoogleDriveStorage\Gdrive;
 
 class BookController extends Controller
 {
     public function index()
     {
-        return view('user.home');
+        $book = Books::all()->groupBy('category');
+        $drive = Gdrive::all('location')->groupby('path');
+        return view('user.home', compact('book', 'drive'));
     }
 
     public function showAll()

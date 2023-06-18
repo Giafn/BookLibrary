@@ -71,4 +71,11 @@ class AdminController extends Controller
         $data = Gdrive::all('location')->groupby('path');
         return $data;
     }
+    public function showImage($id)
+    {
+        $item = Books::where('id', $id)->first();
+        $drive = Gdrive::all('location')->groupby('path');
+        $link = "https://drive.google.com/uc?id=".$drive['location/'.$item->image]->first()['extraMetadata']['id'];
+        return $link;
+    }
 }

@@ -43,100 +43,25 @@
     <div class="row ms-2 ps-2 pt-3 g-2">
         <hr>
         <div class="d-flex">
-            <h3>Genre : Romance</h3>
+            <h3>Genre : Comic</h3>
             <a href="#" class="ms-auto me-2">See All</a>
         </div>
         <div class="col">
             <div class="swiper">
                 <div class="swiper-wrapper">
-                  <div class="swiper-slide">
+                @foreach ($book['Comic'] as $item)
+                  <div class="swiper-slide" data-id="{{$item->id}}">
                     <div class="card">
                         <div class="card-body p-1">
-                            <img src="https://media1.popsugar-assets.com/files/thumbor/ipE6sBGSAIh_iwKUbGctUWurY9U/fit-in/728xorig/filters:format_auto-!!-:strip_icc-!!-/2022/10/07/880/n/44498184/dbb4e2d06340872ae64557.47779917_/i/new-holiday-romance-books-2022.jpg" class="img-fluid w-100" alt="">
+                            <img src="https://drive.google.com/uc?id={{$drive['location/'.$item->image]->first()['extraMetadata']['id']}}" class="img-fluid w-100" alt="">
                             <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
+                                <h5>{{$item->title}}</h5>
                                 <h5>9.4</h5>
                             </div>
                         </div>
                     </div>
                   </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1549389961-51BUuLUf0zL.jpg?crop=1xw:0.930xh;center,top&resize=980:*" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://marketplace.canva.com/EAFGkIqRQvw/2/0/1003w/canva-watercolor-love-story-book-cover-Pqcyp1HUafk.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://marketplace.canva.com/EAFDrpeQCNg/1/0/1003w/canva-cute-colorful-simple-summer-love-romance-book-cover-403u62X2MIs.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1549389961-51BUuLUf0zL.jpg?crop=1xw:0.930xh;center,top&resize=980:*" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://marketplace.canva.com/EAFGkIqRQvw/2/0/1003w/canva-watercolor-love-story-book-cover-Pqcyp1HUafk.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://marketplace.canva.com/EAFDrpeQCNg/1/0/1003w/canva-cute-colorful-simple-summer-love-romance-book-cover-403u62X2MIs.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://marketplace.canva.com/EAFDrpeQCNg/1/0/1003w/canva-cute-colorful-simple-summer-love-romance-book-cover-403u62X2MIs.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Avengers</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
+                @endforeach
                 </div>
                 <!-- If we need navigation buttons -->
                 <div class="swiper-button-prev text-white"></div>
