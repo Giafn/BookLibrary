@@ -36,17 +36,9 @@
                                 <label for="category" class="form-label">Category</label>
                                 <select class="form-select" aria-label="Default select example" id="category" name="category">
                                     <option selected>Open this select menu</option>
-                                    <option value="Novel">Novel</option>
-                                    <option value="Comic">Comic</option>
-                                    <option value="Science">Science</option>
-                                    <option value="History">History</option>
-                                    <option value="Biography">Biography</option>
-                                    <option value="Religion">Religion</option>
-                                    <option value="Health">Health</option>
-                                    <option value="Cooking">Cooking</option>
-                                    <option value="Travel">Travel</option>
-                                    <option value="Children">Children</option>
-                                    <option value="Other">Other</option>
+                                    @foreach ($category as $item)
+                                        <option value="{{$item->name}}">{{$item->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -62,7 +54,7 @@
                                 <input type="number" class="form-control" id="copy" name="copy" placeholder="copy">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button id="sub" type="submit" class="btn btn-primary">Submit</button>
                       </form>
                 </div>
             </div>
@@ -70,4 +62,10 @@
     </div>
 @endsection
 @push('Scripts')
+<script>
+    $('#sub').click(function () {
+        $('.loader').removeClass('d-none');
+
+    });
+</script>
 @endpush

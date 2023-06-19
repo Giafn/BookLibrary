@@ -20,6 +20,8 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{url('/css/app.css')}}">
+    {{-- data table --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
 </head>
 <body>
     <div id="app">
@@ -45,7 +47,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="nav-link @if ($selected == "borrowed") active @else text-dark @endif">
+                        <a href="{{url('/admin/borowBook')}}" class="nav-link @if ($selected == "borrowed") active @else text-dark @endif">
                             <i class="bi bi-bookmark-fill me-2"></i>
                             Borrowed Book
                         </a>
@@ -76,22 +78,16 @@
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ms-auto">
                                 <!-- Authentication Links -->
-                                    <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->name }}
+                                    <li class="nav-item">
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
                                         </a>
-        
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-        
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
-                                        </div>
+    
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
                                     </li>
                             </ul>
                         </div>
@@ -99,7 +95,7 @@
                 </nav>
                 <main class="py-4">
                     {{-- loading div --}}
-                    <div class="d-flex justify-content-center align-items-center bg-white fixed-top d-none opacity-50" id="loader" style="height: 100vh">
+                    <div class="d-flex justify-content-center align-items-center bg-white fixed-top opacity-50" id="loader" style="height: 100vh">
                         <div class="spinner-border text-primary opacity-100" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
@@ -115,4 +111,11 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+{{-- data table --}}
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#loader').addClass('d-none');
+    });
+</script>
 @stack('Scripts')
