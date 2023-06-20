@@ -26,7 +26,7 @@
                 <a href="{{url('/detail/'.$b->id)}}?image=https://drive.google.com/uc?id={{$drive['location/'.$b->image]->first()['extraMetadata']['id']}}">
                     <div class="card" data-id="{{$b->id}}" data-image="https://drive.google.com/uc?id={{$drive['location/'.$b->image]->first()['extraMetadata']['id']}}">
                         <div class="card-body p-1">
-                            <img src="https://drive.google.com/uc?id={{$drive['location/'.$b->image]->first()['extraMetadata']['id']}}" class="img-fluid w-100" alt="">
+                            <img src="https://drive.google.com/uc?id={{$drive['location/'.$b->image]->first()['extraMetadata']['id']}}" class="img-fluid w-100" alt="" loading="lazy">
                             <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
                                 <h5>{{$b->title}}</h5>
                             </div>
