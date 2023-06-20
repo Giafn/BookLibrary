@@ -49,6 +49,27 @@ class BorowBookController extends Controller
         ]);
         $request = $request->all();
         $request['date_borow'] = date('Y-m-d');
+        if (strtotime($request['date_return']) < strtotime(date('Y-m-d'))) {
+            return redirect()->back()->with('error', 'Date return must be greater than date now');
+        }
+        if (strtotime($request['date_return']) > strtotime('+30 day', strtotime(date('Y-m-d')))) {
+            return redirect()->back()->with('error', 'Date return must be less than date now + 30 day');
+        }
+        $check = BorowBook::where('user_id', $request['user_id'])
+            ->where('book_id', $request['book_id'])
+            ->where('status', null)
+            ->count();
+        if ($check > 0) {
+            return redirect()->back()->with('error', 'User has been borrowed the book');
+        }
+        // check if user has borrow 4 books
+        $check = BorowBook::where('user_id', $request['user_id'])
+            ->where('status', null)
+            ->count();
+        if ($check >= 4) {
+            return redirect()->back()->with('error', 'User has been borrowed 4 books');
+        }
+
         if ($validator->fails()) {
             dd($validator->errors());
         }
@@ -56,7 +77,7 @@ class BorowBookController extends Controller
         $book = Books::find($request['book_id']);
         $book->copies = $book->copies - 1;
         $book->save();
-        return redirect()->route('admin.borowBook');
+        return redirect()->route('admin.borowBook')->with('success', 'Success add data');
     }
     public function setBack($id)
     {
@@ -89,7 +110,15 @@ class BorowBookController extends Controller
         $book->save();
         $data->save();
         return response()->json([
-            'message' => 'success'
+            'message' => 'success approve'
+        ]);
+    }
+    public function reject($id)
+    {
+        $data = BorowBook::find($id);
+        $data->delete();
+        return response()->json([
+            'message' => 'success reject'
         ]);
     }
 }

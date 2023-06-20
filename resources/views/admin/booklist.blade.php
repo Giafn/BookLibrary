@@ -7,6 +7,27 @@
     </ul>
     <div class="row ps-3">
         <div class="col">
+            @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{session('success')}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @elseif(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{session('error')}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+            @if ($errors->any())
+            <div class="alert alert-danger" id="alert-hide">
+                @foreach ($errors->all() as $error)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{$error}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endforeach
+            </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     <h3><b>Book List</b></h3>

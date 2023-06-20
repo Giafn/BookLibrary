@@ -3,19 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    
     <title>Book Library</title>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- swiper js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
+    
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -33,78 +33,81 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                
                 <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto w-100 d-md-block d-none">
-                        <form action="{{url('/search')}}" method="POST">
-                        <div class="input-group flex-nowrap w-50">
-                            <span class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></span>
-                            @csrf
-                            <input name="search" type="text" class="form-control" placeholder="Search Book" aria-label="search" aria-describedby="addon-wrapping">
-                        </div>
+                        <form action="{{url('/search')}}" method="get">
+                            <div class="input-group flex-nowrap w-50">
+                                <span class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></span>
+                                @csrf
+                                <input name="search" type="text" class="form-control" placeholder="Search Book" aria-label="search" aria-describedby="addon-wrapping" 
+                                @isset($search)
+                                    value="{{$search}}"
+                                @endisset>
+                            </div>
                         </form>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
-                            <li class="nav-item dropdown">
-                                <a class="my-1 d-md-none d-block btn btn-dark @if(Request::url() == url('/home')) active @endif" href="{{url('/')}}">Home</a>
-                                <a class="my-1 d-md-none d-block btn btn-dark @if(Request::url() == url('/borrow')) active @endif" href="{{url('/borrow')}}">My Borrow</a>
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-                                
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                    </ul>
-                </div>
+                        <li class="nav-item dropdown">
+                            <a class="my-1 d-md-none d-block btn btn-dark @if(Request::url() == url('/home')) active @endif" href="{{url('/')}}">Home</a>
+                            <a class="my-1 d-md-none d-block btn btn-dark @if(Request::url() == url('/borrow')) active @endif" href="{{url('/borrow')}}">My Borrow</a>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+                            
+                            
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-        @endguest
-
-        <div class="row w-100">
-            @guest
-            @else
-            <div class="col-md-3 d-md-block d-none">
-                <div class="d-flex flex-column flex-shrink-0 ps-4 text-center">
-                    <a href="/" class="mx-auto mb-3 mb-md-0 me-md-auto text-decoration-none">
-                        <i class="bi bi-book fs-1"></i>
-                    </a>
-                    <ul class="nav nav-pills flex-column mb-auto">
-                      <li class="nav-item">
+        </div>
+    </nav>
+    @endguest
+    
+    <div class="row w-100">
+        @guest
+        @else
+        <div class="col-md-3 d-md-block d-none">
+            <div class="d-flex flex-column flex-shrink-0 ps-4 text-center">
+                <a href="/" class="mx-auto mb-3 mb-md-0 me-md-auto text-decoration-none">
+                    <i class="bi bi-book fs-1"></i>
+                </a>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
                         <a href="{{url('/')}}" class="nav-link @if(Request::url() == url('/home')) active @endif" aria-current="page">
                             <i class="bi bi-house me-2"></i>
                             Home
                         </a>
-                      </li>
+                    </li>
                     <hr>
-                      <li>
+                    <li>
                         <a href="{{url('/borrow')}}" class="nav-link @if(Request::url() == url('/borrow')) active @endif">
                             <i class="bi bi-book me-2"></i>
                             My Borrow
                         </a>
-                      </li>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
             </div>
-            @endguest
-            @guest
-            <div class="col">
+        </div>
+        @endguest
+        @guest
+        <div class="col">
             @else
             <div class="col-md-9">
-            @endguest
+                @endguest
                 <div class="d-none d-flex justify-content-center align-items-center bg-dark fixed-top opacity-50" id="loader" style="height: 100vh">
                     <div class="spinner-border text-primary opacity-100" role="status">
                         <span class="visually-hidden">Loading...</span>

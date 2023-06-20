@@ -39,7 +39,7 @@ class BookController extends Controller
     public function search(Request $request)
     {
         $allcategory = Category::all();
-        $book = Books::where('title', 'like', '%' . $request->search . '%')->get();
+        $book = Books::where('title', 'like', '%' . $request->search . '%')->paginate(8);
         $search = $request->search;
         $drive = Gdrive::all('location')->groupby('path');
         return view('user.filter', compact('book', 'search', 'drive', 'allcategory'));
@@ -53,7 +53,7 @@ class BookController extends Controller
         } else {
             $category = Category::where('name', $idcategory)->first();
         }
-        $book = Books::where('category', $category->name)->get();
+        $book = Books::where('category', $category->name)->paginate(8);
         $search = $category->name;
         $allcategory = Category::all();
         $drive = Gdrive::all('location')->groupby('path');
@@ -62,12 +62,34 @@ class BookController extends Controller
 
     public function borrow(Request $request, $id)
     {
-        $validator = $request->validate([
+        $validator = \Validator::make($request->all(), [
             'date_return' => 'required',
         ]);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'please fill all field correctly');
+        }
         $book = BorowBook::where('book_id',$id)->where('user_id',auth()->user()->id)->first();
         if ($book) {
             return redirect()->back()->with('error', 'You have borrowed this book');
+        }
+        // if date return < date now
+        if (strtotime($request->date_return) < strtotime(date('Y-m-d'))) {
+            return redirect()->back()->with('error', 'Date return must be greater than date now');
+        }
+        // if date return > date now + 30 day
+        if (strtotime($request->date_return) > strtotime('+30 day', strtotime(date('Y-m-d')))) {
+            return redirect()->back()->with('error', 'Date return must be less than date now + 30 day');
+        }
+        // if user has borrowed 4 books
+        $count = BorowBook::where('user_id', auth()->user()->id)
+            ->count();
+        if ($count >= 4) {
+            return redirect()->back()->with('error', 'You have borrowed / request borrow 4 books');
+        }
+        // if book copies = 0
+        $book = Books::find($id);
+        if ($book->copies == 0) {
+            return redirect()->back()->with('error', 'Book stock is empty');
         }
         $borrow = new BorowBook();
         $borrow->user_id = auth()->user()->id;
@@ -76,7 +98,7 @@ class BookController extends Controller
         $borrow->date_return = $request->date_return;
         $borrow->status = 1;
         $borrow->save();
-        return redirect()->route('home')->with('success', 'Borrow book success');
+        return redirect()->route('book.myBorrow')->with('success', 'Request borrow book success');
     }
 
     public function myBorrow()
@@ -99,6 +121,6 @@ class BookController extends Controller
         } else {
             return redirect()->back()->with('error', 'cancel book must by admin');
         }
-        return redirect()->back()->with('success', 'Return book success');
+        return redirect()->back()->with('success', 'cancel borrow request success');
     }
 }

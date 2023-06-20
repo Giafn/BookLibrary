@@ -12,7 +12,16 @@ class AdminController extends Controller
     public function index()
     {
         $selected = 'home';
-        return view('admin.home', compact('selected'));
+        $borowNow = Books::join('borow_book', 'borow_book.book_id', 'book.id')
+            ->where('borow_book.status', null)
+            ->count();
+        $countMember = \DB::table('users')
+            ->where('is_admin', null)
+            ->count();
+        $mustReturnToday = \DB::table('borow_book')
+            ->where('date_return', date('Y-m-d'))
+            ->count();
+        return view('admin.home', compact('selected', 'borowNow', 'countMember', 'mustReturnToday'));
     }
     public function drive()
     {
@@ -40,12 +49,14 @@ class AdminController extends Controller
             'publisher' => 'required',
             'year' => 'required',
             'description' => 'required',
-            'category' => 'required',
+            'category' => 'required|not_in:0',
             'copy' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
         ]);
         if ($validator->fails()) {
-           dd($validator->errors());
+            return redirect()->route('admin.addBook')
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $book = new Books();
@@ -105,7 +116,9 @@ class AdminController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
         ]);
         if ($validator->fails()) {
-           dd($validator->errors());
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $book = Books::find($id);

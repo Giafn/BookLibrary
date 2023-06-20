@@ -17,9 +17,9 @@
             <div class="card" style="background-color: #F7E6C4">
                 <div class="card-body">
                     <div class="text-md-end text-center">
-                        <h3>Today Borrow</h3>
-                        <h1 class="display-5"><b>0</b></h1>
-                        <h4>book borrowed</h4>
+                        <h3>Member total</h3>
+                        <h1 class="display-5"><b>{{$countMember}}</b></h1>
+                        <h4>Member</h4>
                     </div>
                 </div>
             </div>
@@ -28,8 +28,8 @@
             <div class="card" style="background-color: #F7E6C4">
                 <div class="card-body">
                     <div class="text-md-start text-center">
-                        <h3>Today back</h3>
-                        <h1 class="display-5"><b>0</b></h1>
+                        <h3>Today Borrow</h3>
+                        <h1 class="display-5"><b>{{$borowNow}}</b></h1>
                         <h4>Book</h4>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <div class="text-center">
                         <h3>Must returned today</h3>
-                        <h1 class="display-5"><b>0</b></h1>
+                        <h1 class="display-5"><b>{{$mustReturnToday}}</b></h1>
                         <h4>Book</h4>
                     </div>
                 </div>

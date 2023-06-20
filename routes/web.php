@@ -25,7 +25,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [BookController::class, 'index'])->name('home');
     Route::get('/detail/{id}', [BookController::class, 'detail'])->name('book.all');
-    Route::post('/search', [BookController::class, 'search'])->name('book.search');
+    Route::get('/search', [BookController::class, 'search'])->name('book.search');
     Route::get('/category/{id}', [BookController::class, 'byCategory'])->name('book.category');
     Route::post('/borrow/{id}', [BookController::class, 'borrow'])->name('book.borrow');
     Route::get('/borrow', [BookController::class, 'myBorrow'])->name('book.myBorrow');
@@ -56,4 +56,5 @@ Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::get('/admin/borowBook/setBack/{id}', [BorowBookController::class, 'setBack'])->name('admin.borowBook.setBack');
     Route::get('/admin/borowBook/showReq', [BorowBookController::class, 'reqBorrow'])->name('admin.borowBook.showReq');
     Route::get('/admin/borowBook/approve/{id}', [BorowBookController::class, 'approve'])->name('admin.borowBook.approve');
+    Route::get('/admin/borowBook/reject/{id}', [BorowBookController::class, 'reject'])->name('admin.borowBook.reject');
 });

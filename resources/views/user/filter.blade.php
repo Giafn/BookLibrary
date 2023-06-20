@@ -21,14 +21,14 @@
         </div>
         <div class="row g-2">
             <hr>
-            @forelse ($book as $book)
+            @forelse ($book as $b)
             <div class="col-md-3 col-6">
-                <a href="{{url('/detail/'.$book->id)}}?image=https://drive.google.com/uc?id={{$drive['location/'.$book->image]->first()['extraMetadata']['id']}}">
-                    <div class="card" data-id="{{$book->id}}" data-image="https://drive.google.com/uc?id={{$drive['location/'.$book->image]->first()['extraMetadata']['id']}}">
+                <a href="{{url('/detail/'.$b->id)}}?image=https://drive.google.com/uc?id={{$drive['location/'.$b->image]->first()['extraMetadata']['id']}}">
+                    <div class="card" data-id="{{$b->id}}" data-image="https://drive.google.com/uc?id={{$drive['location/'.$b->image]->first()['extraMetadata']['id']}}">
                         <div class="card-body p-1">
-                            <img src="https://drive.google.com/uc?id={{$drive['location/'.$book->image]->first()['extraMetadata']['id']}}" class="img-fluid w-100" alt="">
+                            <img src="https://drive.google.com/uc?id={{$drive['location/'.$b->image]->first()['extraMetadata']['id']}}" class="img-fluid w-100" alt="">
                             <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>{{$book->title}}</h5>
+                                <h5>{{$b->title}}</h5>
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,9 @@
             </div>
             @endforelse
         </div>
-    </div>
+        <div class="row mt-2">
+            {{$book->links()}}
+        </div>
 @endsection
 @push('scripts')
 {{-- jquery --}}
