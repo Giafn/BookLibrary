@@ -53,13 +53,13 @@
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="nav-link @if ($selected == "member") active @else text-dark @endif">
+                        <a href="{{url('/admin/member')}}" class="nav-link @if ($selected == "member") active @else text-dark @endif">
                             <i class="bi bi-person-lines-fill me-2"></i>
                            Member List
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="nav-link @if ($selected == "lost") active @else text-dark @endif">
+                        <a href="#" class="nav-link @if ($selected == "lost") active @else text-dark @endif d-none">
                             <i class="bi bi-journal-x me-2"></i>
                            Lost Book
                         </a>
@@ -95,7 +95,7 @@
                 </nav>
                 <main class="py-4">
                     {{-- loading div --}}
-                    <div class="d-none d-flex justify-content-center align-items-center bg-white fixed-top opacity-50" id="loader" style="height: 100vh">
+                    <div class="z-3 d-none d-flex justify-content-center align-items-center bg-white fixed-top opacity-50" id="loader" style="height: 100vh">
                         <div class="spinner-border text-primary opacity-100" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
@@ -118,7 +118,7 @@
         $('#loader').removeClass('d-none');
         setTimeout(function(){
             $('#loader').addClass('d-none');
-        }, 7000);
+        }, 10000);
     });
 </script>
 @stack('Scripts')

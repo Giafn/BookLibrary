@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorowBookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,4 +58,10 @@ Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::get('/admin/borowBook/showReq', [BorowBookController::class, 'reqBorrow'])->name('admin.borowBook.showReq');
     Route::get('/admin/borowBook/approve/{id}', [BorowBookController::class, 'approve'])->name('admin.borowBook.approve');
     Route::get('/admin/borowBook/reject/{id}', [BorowBookController::class, 'reject'])->name('admin.borowBook.reject');
+
+    Route::get('/admin/member', [MemberController::class, 'index'])->name('admin.member');
+    Route::post('/admin/member/add', [MemberController::class, 'addMember'])->name('admin.member.add');
+    Route::get('/admin/member/edit/{id}', [MemberController::class, 'editMember'])->name('admin.member.edit');
+    Route::post('/admin/member/update', [MemberController::class, 'updateMember'])->name('admin.member.update');
+    Route::get('/admin/member/delete/{id}', [MemberController::class, 'destroy'])->name('admin.member.delete');
 });

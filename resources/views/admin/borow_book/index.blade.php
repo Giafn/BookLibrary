@@ -28,7 +28,7 @@
                 <table class="table" id="table">
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th>no</th>
                             <th>nama buku</th>
                             <th>nama user</th>
                             <th>tanggal pinjam</th>
@@ -38,14 +38,25 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $item)
+                        @php
+                            $now = strtotime(date('Y-m-d'));
+                            $date = strtotime(date('Y-m-d', strtotime($item->date_return)));
+                            if ($date < $now) {
+                                $status = 'btn-danger';
+                                $s = 'text-danger';
+                            } else {
+                                $status = 'btn-success';
+                                $s = '';
+                            }
+                        @endphp
                         <tr>
-                            <td>{{$item->id}}</td>
-                            <td>{{$item->book_title}}</td>
-                            <td>{{$item->user_name}}</td>
-                            <td>{{$item->date_borow}}</td>
-                            <td>{{$item->date_return}}</td>
+                            <td><span class="{{$s}}">{{$loop->iteration}}</span></td>
+                            <td><span class="{{$s}}">{{$item->book_title}}</span></td>
+                            <td><span class="{{$s}}">{{$item->user_name}}</span></td>
+                            <td><span class="{{$s}}">{{$item->date_borow}}</span></td>
+                            <td><span class="{{$s}}">{{$item->date_return}}</span></td>
                             <td>
-                                <a class="save btn btn-success" data-id="{{$item->id}}">set back</a>
+                                <a class="save btn {{$status}} btn-sm" data-id="{{$item->id}}"><i class="bi bi-box-arrow-down"></i></a>
                             </td>
                         </tr>
                         @endforeach
