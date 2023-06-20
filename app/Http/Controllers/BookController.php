@@ -41,8 +41,9 @@ class BookController extends Controller
         $allcategory = Category::all();
         $book = Books::where('title', 'like', '%' . $request->search . '%')->paginate(8);
         $search = $request->search;
+        $typing = $request->search;
         $drive = Gdrive::all('location')->groupby('path');
-        return view('user.filter', compact('book', 'search', 'drive', 'allcategory'));
+        return view('user.filter', compact('book', 'search', 'drive', 'allcategory', 'typing'));
     }
 
     public function byCategory($idcategory)

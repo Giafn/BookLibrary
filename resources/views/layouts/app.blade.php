@@ -42,8 +42,8 @@
                                 <span class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></span>
                                 @csrf
                                 <input name="search" type="text" class="form-control" placeholder="Search Book" aria-label="search" aria-describedby="addon-wrapping" 
-                                @isset($search)
-                                    value="{{$search}}"
+                                @isset($typing)
+                                    value="{{$typing}}"
                                 @endisset>
                             </div>
                         </form>
@@ -114,6 +114,19 @@
                     </div>
                 </div>
                 <main class="py-4">
+                    <div class="row ms-2">
+                        <div class="col-12">
+                            <form action="{{url('/search')}}" method="get">
+                                <div class="input d-md-none d-block">
+                                    @csrf
+                                    <input name="search" type="text" class="form-control" placeholder="Search Book" aria-label="search"
+                                    @isset($typing)
+                                        value="{{$typing}}"
+                                    @endisset>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     @yield('content')
                 </main>
                 <div class="p-2 mt-5">
@@ -136,6 +149,9 @@
 <script>
     $(window).bind('beforeunload', function(){
         $('#loader').removeClass('d-none');
+        setTimeout(function(){
+            $('#loader').addClass('d-none');
+        }, 7000);
     });
 </script>
 @stack('Scripts')

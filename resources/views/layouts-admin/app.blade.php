@@ -116,6 +116,9 @@
 <script>
     $(window).bind('beforeunload', function(){
         $('#loader').removeClass('d-none');
+        setTimeout(function(){
+            $('#loader').addClass('d-none');
+        }, 7000);
     });
 </script>
 @stack('Scripts')
