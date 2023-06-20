@@ -95,7 +95,7 @@
                 </nav>
                 <main class="py-4">
                     {{-- loading div --}}
-                    <div class="d-flex justify-content-center align-items-center bg-white fixed-top opacity-50" id="loader" style="height: 100vh">
+                    <div class="d-none d-flex justify-content-center align-items-center bg-white fixed-top opacity-50" id="loader" style="height: 100vh">
                         <div class="spinner-border text-primary opacity-100" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
@@ -114,8 +114,8 @@
 {{-- data table --}}
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script>
-    $(document).ready(function(){
-        $('#loader').addClass('d-none');
+    $(window).bind('beforeunload', function(){
+        $('#loader').removeClass('d-none');
     });
 </script>
 @stack('Scripts')

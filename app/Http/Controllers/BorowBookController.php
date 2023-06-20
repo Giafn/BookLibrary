@@ -13,6 +13,7 @@ class BorowBookController extends Controller
     {
         $data = BorowBook::join('users', 'users.id', '=', 'borow_book.user_id')
             ->join('book', 'book.id', '=', 'borow_book.book_id')
+            ->where('borow_book.status', null)
             ->select('borow_book.*', 'users.name as user_name', 'book.title as book_title')
             ->get();
         $selected = "borrowed";
@@ -44,14 +45,15 @@ class BorowBookController extends Controller
         $validator = \Validator::make($request->all(), [
             'user_id' => 'required',
             'book_id' => 'required',
-            'date_borow' => 'required',
             'date_return' => 'required',
         ]);
+        $request = $request->all();
+        $request['date_borow'] = date('Y-m-d');
         if ($validator->fails()) {
             dd($validator->errors());
         }
-        $data = BorowBook::create($request->all());
-        $book = Books::find($request->book_id);
+        $data = BorowBook::create($request);
+        $book = Books::find($request['book_id']);
         $book->copies = $book->copies - 1;
         $book->save();
         return redirect()->route('admin.borowBook');
@@ -63,6 +65,29 @@ class BorowBookController extends Controller
         $book->copies = $book->copies + 1;
         $book->save();
         $data->delete();
+        return response()->json([
+            'message' => 'success'
+        ]);
+    }
+    public function reqBorrow()
+    {
+        $data = BorowBook::join('users', 'users.id', '=', 'borow_book.user_id')
+            ->join('book', 'book.id', '=', 'borow_book.book_id')
+            ->where('borow_book.status', 1)
+            ->select('borow_book.*', 'users.name as user_name', 'book.title as book_title')
+            ->get();
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+    public function approve($id)
+    {
+        $data = BorowBook::find($id);
+        $book = Books::find($data->book_id);
+        $book->copies = $book->copies - 1;
+        $data->status = null;
+        $book->save();
+        $data->save();
         return response()->json([
             'message' => 'success'
         ]);

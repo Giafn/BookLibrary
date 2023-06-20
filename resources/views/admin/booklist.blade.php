@@ -40,7 +40,6 @@
                                 <td>{{$book->author}}</td>
                                 <td>{{$book->publisher}}</td>
                                 <td>{{$book->category}}</td>
-                                {{-- <td><img src="https://drive.google.com/uc?id={{$drive['location/'.$book->image]->first()['extraMetadata']['id']}}" alt="" width="100px"></td> --}}
                                 <td>
                                     {{-- btn show image --}}
                                     <a class="btn btn-primary showimage" data-id="{{$book->id}}"><i class="bi bi-eye-fill"></i>

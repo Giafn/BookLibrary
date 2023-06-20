@@ -81,7 +81,7 @@ class AdminController extends Controller
     {
         $item = Books::where('id', $id)->first();
         $drive = Gdrive::all('location')->groupby('path');
-        $link = "https://drive.google.com/uc?id=".$drive['location/'.$item->image]->first()['extraMetadata']['id'];
+        $link = "https://drive.google.com/thumbnail?authuser=0&sz=w320&id=".$drive['location/'.$item->image]->first()['extraMetadata']['id'];
         return $link;
     }
     public function editBook($id)
@@ -89,7 +89,7 @@ class AdminController extends Controller
         $book = Books::find($id);
         $category = Category::all();
         $drive = Gdrive::all('location')->groupby('path');
-        $link = "https://drive.google.com/uc?id=".$drive['location/'.$book->image]->first()['extraMetadata']['id'];
+        $link = "https://drive.google.com/thumbnail?authuser=0&sz=w320&id=".$drive['location/'.$book->image]->first()['extraMetadata']['id'];
         return response()->json(["data" => $book, "link" => $link, "category" => $category]);
     }
     public function updateBook(Request $request, $id)

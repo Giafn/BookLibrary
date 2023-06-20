@@ -24,8 +24,12 @@ Route::get('/', function () {
 Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [BookController::class, 'index'])->name('home');
-    Route::get('/detail', [BookController::class, 'detail'])->name('book.all');
-    Route::get('/detail/{id}', [BookController::class, 'showDetail'])->name('book.detail');
+    Route::get('/detail/{id}', [BookController::class, 'detail'])->name('book.all');
+    Route::post('/search', [BookController::class, 'search'])->name('book.search');
+    Route::get('/category/{id}', [BookController::class, 'byCategory'])->name('book.category');
+    Route::post('/borrow/{id}', [BookController::class, 'borrow'])->name('book.borrow');
+    Route::get('/borrow', [BookController::class, 'myBorrow'])->name('book.myBorrow');
+    Route::get('/cancelBorrow/{id}', [BookController::class, 'cancelBorrow'])->name('book.cancelBorrow');
 });
 
 Route::group(['middleware' => ['auth', 'Admin']], function () {
@@ -50,4 +54,6 @@ Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::post('/admin/borowBook/show', [BorowBookController::class, 'show'])->name('admin.borowBook.show');
     Route::post('/admin/borowBook/store', [BorowBookController::class, 'store'])->name('admin.borowBook.store');
     Route::get('/admin/borowBook/setBack/{id}', [BorowBookController::class, 'setBack'])->name('admin.borowBook.setBack');
+    Route::get('/admin/borowBook/showReq', [BorowBookController::class, 'reqBorrow'])->name('admin.borowBook.showReq');
+    Route::get('/admin/borowBook/approve/{id}', [BorowBookController::class, 'approve'])->name('admin.borowBook.approve');
 });

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Book Library</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -37,18 +37,24 @@
                 <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto w-100 d-md-block d-none">
+                        <form action="{{url('/search')}}" method="POST">
                         <div class="input-group flex-nowrap w-50">
                             <span class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></span>
-                            <input type="text" class="form-control" placeholder="Search Book" aria-label="search" aria-describedby="addon-wrapping">
+                            @csrf
+                            <input name="search" type="text" class="form-control" placeholder="Search Book" aria-label="search" aria-describedby="addon-wrapping">
                         </div>
+                        </form>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                             <li class="nav-item dropdown">
+                                <a class="my-1 d-md-none d-block btn btn-dark @if(Request::url() == url('/home')) active @endif" href="{{url('/')}}">Home</a>
+                                <a class="my-1 d-md-none d-block btn btn-dark @if(Request::url() == url('/borrow')) active @endif" href="{{url('/borrow')}}">My Borrow</a>
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
+                                
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -78,22 +84,16 @@
                     </a>
                     <ul class="nav nav-pills flex-column mb-auto">
                       <li class="nav-item">
-                        <a href="#" class="nav-link active" aria-current="page">
+                        <a href="{{url('/')}}" class="nav-link @if(Request::url() == url('/home')) active @endif" aria-current="page">
                             <i class="bi bi-house me-2"></i>
                             Home
                         </a>
                       </li>
                     <hr>
                       <li>
-                        <a href="#" class="nav-link">
+                        <a href="{{url('/borrow')}}" class="nav-link @if(Request::url() == url('/borrow')) active @endif">
                             <i class="bi bi-book me-2"></i>
-                            My Collection
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#" class="nav-link">
-                            <i class="bi bi-star me-2"></i>
-                            Favorites
+                            My Borrow
                         </a>
                       </li>
                     </ul>
@@ -105,19 +105,34 @@
             @else
             <div class="col-md-9">
             @endguest
+                <div class="d-none d-flex justify-content-center align-items-center bg-dark fixed-top opacity-50" id="loader" style="height: 100vh">
+                    <div class="spinner-border text-primary opacity-100" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 <main class="py-4">
                     @yield('content')
                 </main>
-                <footer>
-                    <div class="text-center py-3">
-                        <span class="">Made with <i class="bi bi-heart-fill"></i> by kelompok 3</span>
-                    </div>
-                </footer>
+                <div class="p-2 mt-5">
+                    <footer class="fixed-bottom bg-dark">
+                        <div class="text-center py-3">
+                            <span class="">Made with <i class="bi bi-heart-fill"></i> by kelompok 3</span>
+                        </div>
+                    </footer>
+                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+{{-- jquery cdn --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{{-- vite js --}}
+<script>
+    $(window).bind('beforeunload', function(){
+        $('#loader').removeClass('d-none');
+    });
+</script>
 @stack('Scripts')

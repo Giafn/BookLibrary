@@ -5,62 +5,57 @@
         <ul class="breadcrumb">
             <li><a href="/"><small>Home</small></a></li>
         </ul>
-        <h3>Popular</h3>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body p-1">
-                    <img src="https://legendary-digital-network-assets.s3.amazonaws.com/wp-content/uploads/2020/05/13042136/6295174-house-of-m-avengers-1.jpg" class="img-fluid w-100" alt="">
-                    <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                        <h5>Avengers</h5>
-                        <h5>9.4</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="card">
-                <div class="card-body p-1">
-                    <img src="https://media.defense.gov/2013/Feb/20/2000074330/1200/1200/0/130220-F-ZZ999-002.JPG" class="img-fluid w-100" alt="">
-                    <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                        <h5>Avengers</h5>
-                        <h5>9.4</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3 col-6">
-            <div class="card">
-                <div class="card-body p-1">
-                    <img src="https://www.tuscaloosanews.com/gcdn/authoring/2015/02/06/NTTN/ghows-DA-a600ed26-006f-4675-8228-4e7895040c1e-7184bee6.jpeg" class="img-fluid w-100" alt="">
-                    <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                        <h5>Avengers</h5>
-                        <h5>9.4</h5>
-                    </div>
-                </div>
-            </div>
+    </div>
+    {{-- dropdown pilih category --}}
+    <div class="row ms-2 ps-2 g-2">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Category
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                @foreach ($allcategory as $allcat)
+                    <li><a class="dropdown-item" href="{{url('/category/'.$allcat->id)}}">{{$allcat->name}}</a></li>
+                @endforeach
+            </ul>
         </div>
     </div>
+
+    @foreach ($list as $l)
     <div class="row ms-2 ps-2 pt-3 g-2">
         <hr>
         <div class="d-flex">
-            <h3>Genre : Comic</h3>
-            <a href="#" class="ms-auto me-2">See All</a>
+            <h3>Genre : {{$l}}</h3>
+            <a href="{{url('/category/'.$l)}}" class="ms-auto me-2">See All</a>
         </div>
         <div class="col">
             <div class="swiper">
                 <div class="swiper-wrapper">
-                @foreach ($book['Comic'] as $item)
-                  <div class="swiper-slide" data-id="{{$item->id}}">
-                    <div class="card">
+                @php
+                    $bookCount = count($book[$l]);
+                    $stop_at = $bookCount - $bookCount%4;
+                    if ($stop_at > 8) {
+                        $stop_at = 8;
+                    }
+                    $i = 1;
+                    $shuffled = $book[$l]->shuffle();
+                @endphp
+                @foreach ($shuffled as $item)
+                  <div class="swiper-slide card-item" data-id="{{$item->id}}" data-image="https://drive.google.com/uc?id={{$drive['location/'.$item->image]->first()['extraMetadata']['id']}}">
+                    <div class="card" data-id="{{$item->id}}">
                         <div class="card-body p-1">
-                            <img src="https://drive.google.com/uc?id={{$drive['location/'.$item->image]->first()['extraMetadata']['id']}}" class="img-fluid w-100" alt="">
+                            <img src="https://drive.google.com/thumbnail?authuser=0&sz=w320&id={{$drive['location/'.$item->image]->first()['extraMetadata']['id']}}" class="img-fluid w-100" alt="{{$item->image}}" loading="lazy">
                             <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
                                 <h5>{{$item->title}}</h5>
-                                <h5>9.4</h5>
                             </div>
                         </div>
                     </div>
                   </div>
+                  @if ($i == $stop_at)
+                    @break
+                  @endif
+                  @php
+                    $i++;
+                  @endphp
                 @endforeach
                 </div>
                 <!-- If we need navigation buttons -->
@@ -69,66 +64,7 @@
               </div>
         </div>
     </div>
-    <div class="row ms-2 ps-2 pt-3 g-2">
-        <hr>
-        <div class="d-flex">
-            <h3>Genre : Action</h3>
-            <a href="#" class="ms-auto me-2">See All</a>
-        </div>
-        <div class="col">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/action-book-cover-design-template-ea06579b69a398ba7d4fc845e80fcd66_screen.jpg?ts=1673708846" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Warior</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://cdn2.penguin.com.au/covers/400/9781760896713.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>The Investigator</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://m.media-amazon.com/images/I/51GUbgV2M5L._SX296_BO1,204,203,200_.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>Missing in action</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="swiper-slide">
-                    <div class="card">
-                        <div class="card-body p-1">
-                            <img src="https://cdn.penguin.co.uk/dam-assets/books/9780241402900/9780241402900-jacket-medium.jpg" class="img-fluid w-100" alt="">
-                            <div class="d-flex justify-content-between align-items-center mx-2 flex-coulumn mt-2">
-                                <h5>The Last Orphan</h5>
-                                <h5>9.4</h5>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev text-white"></div>
-                <div class="swiper-button-next text-white"></div>
-              </div>
-        </div>
-    </div>
+    @endforeach
 @endsection
 @push('Scripts')
 <script>
@@ -156,11 +92,19 @@
         },
     });
     // onclick .card
-    const card = document.querySelectorAll('.card');
-    card.forEach((card) => {
-        card.addEventListener('click', () => {
-            window.location.href = "{{ route('book.all') }}";
-        });
+    $('.card-item').click(function(){
+        window.location.href = '/detail/'+$(this).data('id')+'?image='+$(this).data('image');
+    });
+    // document ready
+    $(document).ready(function(){
+        // set height card
+        $('.img-fluid').parent().parent().css('height', '21.75em');
+        $('.img-fluid').parent().parent().css('background-color', '#868e96');
+    });
+    // unset height card
+    $('.img-fluid').on('load', function(){
+        $(this).parent().parent().css('height', '');
+        $(this).parent().parent().css('background-color', '');
     });
 </script>
 @endpush
