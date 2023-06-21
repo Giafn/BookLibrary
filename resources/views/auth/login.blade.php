@@ -53,7 +53,7 @@
                                                 {{ __('Remember Me') }}
                                             </label>
                                         </div>
-                                        <p class="text-end"><a href=""><small>Forgot Password?</small></a></p>
+                                        <p class="text-end"><a href="{{url('/password/reset')}}"><small>Forgot Password?</small></a></p>
                                     </div>
                                 </div>
                             </div>

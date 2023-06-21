@@ -12,6 +12,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- logo -->
+    <link rel="icon" href="{{url('/img/logo/logo.png')}}" type="image/x-icon">
     
     <!-- swiper js -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -25,6 +28,7 @@
     <div id="app">
         @guest
         @else
+        @if (Auth::user()->hasVerifiedEmail())
         <nav class="navbar navbar-expand-lg mt-4 w-100 sticky-top bg-dark">
             <div class="container">
                 <a class="navbar-brand me-md-5 ms-2" href="{{ url('/') }}">
@@ -75,11 +79,13 @@
             </div>
         </div>
     </nav>
+    @endif
     @endguest
     
     <div class="row w-100">
         @guest
         @else
+        @if (Auth::user()->hasVerifiedEmail())
         <div class="col-md-3 d-md-block d-none">
             <div class="d-flex flex-column flex-shrink-0 ps-4 text-center">
                 <a href="/" class="mx-auto mb-3 mb-md-0 me-md-auto text-decoration-none">
@@ -102,11 +108,14 @@
                 </ul>
             </div>
         </div>
+        @endif
         @endguest
         @guest
         <div class="col">
             @else
+            @if (Auth::user()->hasVerifiedEmail())
             <div class="col-md-9">
+                @endif
                 @endguest
                 <div class="d-none d-flex justify-content-center align-items-center bg-dark fixed-top opacity-50" id="loader" style="height: 100vh">
                     <div class="spinner-border text-primary opacity-100" role="status">
@@ -116,6 +125,7 @@
                 <main class="py-4">
                     @guest
                     @else
+                    @if (Auth::user()->hasVerifiedEmail())
                     <div class="row ms-2">
                         <div class="col-12">
                             <form action="{{url('/search')}}" method="get">
@@ -129,6 +139,7 @@
                             </form>
                         </div>
                     </div>
+                    @endif
                     @endguest
                     @yield('content')
                 </main>

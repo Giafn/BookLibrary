@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorowBookController;
 use App\Http\Controllers\CategoryController;
@@ -23,8 +24,12 @@ Route::get('/', function () {
     return redirect()->route('home');
 });
 
+
+Route::get('/email/verify', [VerificationController::class,'show'])->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify')->middleware(['signed']);
+Route::post('/email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 Auth::routes();
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','verified']], function () {
     Route::get('/home', [BookController::class, 'index'])->name('home');
     Route::get('/detail/{id}', [BookController::class, 'detail'])->name('book.all');
     Route::get('/search', [BookController::class, 'search'])->name('book.search');

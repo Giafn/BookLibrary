@@ -68,6 +68,17 @@ You can now access the server at http://localhost:8000
     GOOGLE_DRIVE_CLIENT_SECRET={Your Client Secret}
     GOOGLE_DRIVE_REFRESH_TOKEN={Your Refresh Token}
     GOOGLE_DRIVE_FOLDER={Youur Folder name in drive}
+
+**Dont forget to set email config**
+
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.gmail.com
+    MAIL_PORT=587
+    MAIL_USERNAME={Your email}
+    MAIL_PASSWORD={Your password}
+    MAIL_ENCRYPTION=tls
+    MAIL_FROM_ADDRESS={Your email}
+    MAIL_FROM_NAME="${APP_NAME}"
     
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
