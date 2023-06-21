@@ -1,7 +1,3 @@
-# ![Laravel Example App](logo.png)
-
-----------
-
 # Getting started
 
 ## Installation
