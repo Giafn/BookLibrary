@@ -19,7 +19,7 @@ return new class extends Migration
                 $table->integer('book_id');
                 $table->date('date_borow');
                 $table->date('date_return');
-                $table->integer('status')->default(0);
+                $table->integer('status')->default(null)->nullable();
                 $table->timestamps();
             });
 
