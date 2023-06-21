@@ -38,6 +38,14 @@ Start the local development server
 
     php artisan serve
 
+Start the Vite serve development
+
+    npm run dev
+
+for build application to production
+
+    npm run build
+
 You can now access the server at http://localhost:8000
 
 **TL;DR command list**
@@ -61,4 +69,7 @@ You can now access the server at http://localhost:8000
 
     php artisan migrate
     php artisan serve
+    npm run dev
+    /*or*/
+    npm run build
 
