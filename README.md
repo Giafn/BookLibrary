@@ -49,7 +49,7 @@ You can now access the server at http://localhost:8000
     cp .env.example .env
     php artisan key:generate
 
-**insert variable google setting to .env**
+**insert variable google drive api credential to .env**
 
     FILESYSTEM_CLOUD=google
     GOOGLE_DRIVE_CLIENT_ID=****.apps.googleusercontent.com
