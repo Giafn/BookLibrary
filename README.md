@@ -50,6 +50,7 @@ You can now access the server at http://localhost:8000
     php artisan key:generate
 
 **insert variable google setting to .env**
+
     FILESYSTEM_CLOUD=google
     GOOGLE_DRIVE_CLIENT_ID=****.apps.googleusercontent.com
     GOOGLE_DRIVE_CLIENT_SECRET={Your Client Secret}
