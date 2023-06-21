@@ -114,6 +114,8 @@
                     </div>
                 </div>
                 <main class="py-4">
+                    @guest
+                    @else
                     <div class="row ms-2">
                         <div class="col-12">
                             <form action="{{url('/search')}}" method="get">
@@ -127,6 +129,7 @@
                             </form>
                         </div>
                     </div>
+                    @endguest
                     @yield('content')
                 </main>
                 <div class="p-2 mt-5">
