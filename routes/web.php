@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BorowBookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LostBookController;
 use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/borrow/{id}', [BookController::class, 'borrow'])->name('book.borrow');
     Route::get('/borrow', [BookController::class, 'myBorrow'])->name('book.myBorrow');
     Route::get('/cancelBorrow/{id}', [BookController::class, 'cancelBorrow'])->name('book.cancelBorrow');
+    Route::get('/setLost/{id}', [BookController::class, 'setLost'])->name('book.setLost');
 });
 
 Route::group(['middleware' => ['auth', 'Admin']], function () {
@@ -58,10 +60,15 @@ Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::get('/admin/borowBook/showReq', [BorowBookController::class, 'reqBorrow'])->name('admin.borowBook.showReq');
     Route::get('/admin/borowBook/approve/{id}', [BorowBookController::class, 'approve'])->name('admin.borowBook.approve');
     Route::get('/admin/borowBook/reject/{id}', [BorowBookController::class, 'reject'])->name('admin.borowBook.reject');
+    Route::get('/admin/borowBook/lost/{id}', [BorowBookController::class, 'setLost'])->name('admin.borowBook.lost');
 
     Route::get('/admin/member', [MemberController::class, 'index'])->name('admin.member');
     Route::post('/admin/member/add', [MemberController::class, 'addMember'])->name('admin.member.add');
     Route::get('/admin/member/edit/{id}', [MemberController::class, 'editMember'])->name('admin.member.edit');
     Route::post('/admin/member/update', [MemberController::class, 'updateMember'])->name('admin.member.update');
     Route::get('/admin/member/delete/{id}', [MemberController::class, 'destroy'])->name('admin.member.delete');
+
+    Route::get('/admin/lostBook', [LostBookController::class, 'index'])->name('admin.lostBook');
+    Route::get('/admin/lostBook/setBack/{id}', [LostBookController::class, 'setBack'])->name('admin.lostBook.setBack');
+    Route::get('/admin/lostBook/setpaid/{id}', [LostBookController::class, 'setPaid'])->name('admin.lostBook.setPaid');
 });

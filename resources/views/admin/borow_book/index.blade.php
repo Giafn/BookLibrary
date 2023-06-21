@@ -37,12 +37,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
+                        @forelse ($data as $item)
                         @php
                             $now = strtotime(date('Y-m-d'));
                             $date = strtotime(date('Y-m-d', strtotime($item->date_return)));
                             if ($date < $now) {
-                                $status = 'btn-danger';
+                                $status = 'btn-dark';
                                 $s = 'text-danger';
                             } else {
                                 $status = 'btn-success';
@@ -56,10 +56,19 @@
                             <td><span class="{{$s}}">{{$item->date_borow}}</span></td>
                             <td><span class="{{$s}}">{{$item->date_return}}</span></td>
                             <td>
-                                <a class="save btn {{$status}} btn-sm" data-id="{{$item->id}}"><i class="bi bi-box-arrow-down"></i></a>
+                                <div class="d-flex">
+                                    <a class="save btn {{$status}} btn-sm" data-id="{{$item->id}}"><i class="bi bi-box-arrow-down"></i></a>
+                                    @if ($status == 'btn-dark')
+                                    <a class="setLost ms-1 btn btn-danger btn-sm" data-id="{{$item->id}}"><i class="bi bi-journal-x"></i></a>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Data kosong</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -279,6 +288,26 @@
             });
         }
     });
+
+    // onclick setLost
+    $('.setLost').click(function(){
+        let id = $(this).data('id');
+        // call ajax
+        if(confirm('yakin ingin Buku ini akan di set hilang?')){
+            $.ajax({
+                url: "{{url('/admin/borowBook/lost')}}"+'/'+id,
+                type: "get",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(data){
+                    alert(data.message);
+                    location.reload();
+                }
+            });
+        }
+    });
+
     
 </script>
 @endpush

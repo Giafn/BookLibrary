@@ -38,6 +38,9 @@ class BookController extends Controller
 
     public function search(Request $request)
     {
+        if (!$request->search || $request->search == null) {
+            return redirect()->back();
+        }
         $allcategory = Category::all();
         $book = Books::where('title', 'like', '%' . $request->search . '%')->paginate(8);
         $search = $request->search;
@@ -83,8 +86,15 @@ class BookController extends Controller
         }
         // if user has borrowed 4 books
         $count = BorowBook::where('user_id', auth()->user()->id)
-            ->count();
+            ->where('status', null)
+            ->orWhere('status', 1)
+            ->orWhere('status', 2);
+        $lost = $count->get()->where('status', 2)->count();
+        $count = $count->count();
         if ($count >= 4) {
+            if ($lost > 0) {
+                return redirect()->back()->with('error', 'You have borrowed / request borrow 4 books and you have ' . $lost . ' lost book to pay');
+            }
             return redirect()->back()->with('error', 'You have borrowed / request borrow 4 books');
         }
         // if book copies = 0
@@ -105,10 +115,13 @@ class BookController extends Controller
     public function myBorrow()
     {
         $book = BorowBook::where('borow_book.user_id', auth()->user()->id)
+            ->where('borow_book.status', 1)
+            ->orWhere('borow_book.status', null)
+            ->orWhere('borow_book.status', 2)
             ->join('book', 'book.id', 'borow_book.book_id')
             ->select('book.*', 'borow_book.*')
             ->get();
-        // dd($book);
+            
         return view('user.myBorrow', compact('book'));
     }
 
@@ -123,5 +136,22 @@ class BookController extends Controller
             return redirect()->back()->with('error', 'cancel book must by admin');
         }
         return redirect()->back()->with('success', 'cancel borrow request success');
+    }
+
+    public function setLost($id)
+    {
+        $book = BorowBook::where('id', $id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+        if ($book->status == null) {
+            $book->status = 2;
+            $book->save();
+        } else {
+            return redirect()->back()->with('error', 'error server');
+        }
+        if (!$book) {
+            return redirect()->back()->with('error', 'error server');
+        }
+        return redirect()->back()->with('success', 'set lost book success');
     }
 }

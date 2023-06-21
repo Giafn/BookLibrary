@@ -34,6 +34,10 @@ Run the database migrations (**Set the database connection in .env before migrat
 
     php artisan migrate
 
+If you need to seed with my data
+
+    php artisan db:seed
+
 Start the local development server
 
     php artisan serve
@@ -68,6 +72,7 @@ You can now access the server at http://localhost:8000
 **Make sure you set the correct database connection information before running the migrations** [Environment variables](#environment-variables)
 
     php artisan migrate
+    php artisan db:seed
     php artisan serve
     npm run dev
     /*or*/

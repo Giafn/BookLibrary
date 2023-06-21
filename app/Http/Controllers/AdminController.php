@@ -12,6 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         $selected = 'home';
+        $allBook = Books::all()->count();
         $borowNow = Books::join('borow_book', 'borow_book.book_id', 'book.id')
             ->where('borow_book.status', null)
             ->count();
@@ -21,7 +22,11 @@ class AdminController extends Controller
         $mustReturnToday = \DB::table('borow_book')
             ->where('date_return', date('Y-m-d'))
             ->count();
-        return view('admin.home', compact('selected', 'borowNow', 'countMember', 'mustReturnToday'));
+        $lost = \DB::table('borow_book')
+            ->where('status', 2)
+            ->orWhere('status', 3)
+            ->count();
+        return view('admin.home', compact('selected', 'borowNow', 'countMember', 'mustReturnToday', 'lost', 'allBook'));
     }
     public function drive()
     {

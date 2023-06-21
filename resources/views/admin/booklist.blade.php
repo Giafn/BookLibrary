@@ -52,7 +52,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($books as $book)
+                            @forelse ($books as $book)
                             <tr>
                                 <th scope="row">{{$loop->iteration}}</th>
                                 <td>{{$book->title}}</td>
@@ -79,7 +79,11 @@
                                     </div>
                                 </td>
                               </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="7" class="text-center">Data Empty</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                       </table>
                 </div>

@@ -19,7 +19,7 @@ return new class extends Migration
                 $table->integer('book_id');
                 $table->date('date_borow');
                 $table->date('date_return');
-                $table->integer('status')->default(null)->nullable();
+                $table->integer('status')->default(null)->nullable(); // null = borrowed, 1 = request borrow, 2 = lost 3 = lost and paid the fine
                 $table->timestamps();
             });
 

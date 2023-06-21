@@ -43,7 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($member as $m)
+                        @forelse ($member as $m)
                         <tr>
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$m->name}}</td>
@@ -65,7 +65,11 @@
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center">No Data</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

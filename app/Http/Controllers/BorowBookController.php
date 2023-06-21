@@ -121,4 +121,13 @@ class BorowBookController extends Controller
             'message' => 'success reject'
         ]);
     }
+    public function setLost($id)
+    {
+        $data = BorowBook::find($id);
+        $data->status = 2;
+        $data->save();
+        return response()->json([
+            'message' => 'success set lost'
+        ]);
+    }
 }

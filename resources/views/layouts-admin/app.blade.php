@@ -53,15 +53,15 @@
                         </a>
                       </li>
                       <li>
-                        <a href="{{url('/admin/member')}}" class="nav-link @if ($selected == "member") active @else text-dark @endif">
-                            <i class="bi bi-person-lines-fill me-2"></i>
-                           Member List
+                        <a href="{{url('/admin/lostBook')}}" class="nav-link @if ($selected == "lost") active @else text-dark @endif">
+                            <i class="bi bi-bookmark-x-fill me-2"></i>
+                           Lost Book
                         </a>
                       </li>
                       <li>
-                        <a href="#" class="nav-link @if ($selected == "lost") active @else text-dark @endif d-none">
-                            <i class="bi bi-journal-x me-2"></i>
-                           Lost Book
+                        <a href="{{url('/admin/member')}}" class="nav-link @if ($selected == "member") active @else text-dark @endif">
+                            <i class="bi bi-person-lines-fill me-2"></i>
+                           Member List
                         </a>
                       </li>
                     </ul>
