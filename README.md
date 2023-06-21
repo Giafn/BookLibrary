@@ -73,3 +73,5 @@ You can now access the server at http://localhost:8000
     /*or*/
     npm run build
 
+*google drive api package by* (https://github.com/yaza-putu/laravel-google-drive-storage)
+
