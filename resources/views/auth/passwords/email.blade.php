@@ -36,6 +36,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
+                                <br>
+                                <br>
+                                <a href="{{url('/login')}}"><i class="bi bi-arrow-left-circle"></i>Back</a>
                             </div>
                         </div>
                     </form>

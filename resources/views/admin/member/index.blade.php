@@ -48,7 +48,7 @@
                             <th scope="row">{{$loop->iteration}}</th>
                             <td>{{$m->name}}</td>
                             <td>{{$m->email}}</td>
-                            <td>{{$m->created_at->format('Y-m-d')}}</td>
+                            <td>@if ($m->email_verified_at != null) {{$m->email_verified_at->format('Y-m-d')}} @else <span class="text-warning">Not Verified</span>@endif</td>
                             <td>
                                 <div class="d-flex">
                                     <a class="editBtn btn btn-sm btn-warning me-1" data-id="{{$m->id}}">
