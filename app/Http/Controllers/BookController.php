@@ -114,12 +114,12 @@ class BookController extends Controller
 
     public function myBorrow()
     {
-        $book = BorowBook::where('user_id', auth()->user()->id)
-            ->whereIn('status', ['1','2',null])
+        $book = BorowBook::whereNull('status')
+            ->orwhereIn('status', ['1','2'])
             ->join('book', 'book.id', 'borow_book.book_id')
             ->select('book.*', 'borow_book.*')
-            ->get();
-            
+            ->get()->where('user_id', auth()->user()->id);
+        // dd($book);
         return view('user.myBorrow', compact('book'));
     }
 
