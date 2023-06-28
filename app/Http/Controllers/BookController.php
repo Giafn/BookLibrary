@@ -25,7 +25,7 @@ class BookController extends Controller
         try {
             $drive = Gdrive::all('location')->groupby('path');
         } catch (\Throwable $th) {
-            return response()->json($th);
+            return response()->json("could not connect to google drive");
         }
         return view('user.home', compact('book', 'drive', 'list', 'allcategory'));
     }
